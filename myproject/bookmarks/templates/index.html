@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block subheader %}All bookmarks{% endblock %}
+
+{% block content %}
+<ul class="bookmarks">
+    {% for bookmark in bookmarks %}
+    <li>
+        <a class="bookmark-link" href="{{ bookmark.url }} "> 
+            {% if bookmark.title %} {{ bookmark.title }} {% else %} {{ bookmark.url }} {% endif %}
+        </a>
+        <div class="metadata">
+            <span class="author"> Posted by {{ bookmark.author }}</span> |
+            <span class="timestamp"> {{ bookmark.timestamp|date:"Y-m-d" }} </span> |
+
+            {% if bookmark.tag_set.all %} |
+
+                <span class="tags">
+                {% for tag in bookmark.tag_set.all %}
+                <a href="{% url 'bookmarks.views.tag' tag.slug %"> {{ tag.slug }} </a>
+                {% endfor %}
+                </span>
+
+            {% endif %}
+            
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+ 
+{% block bookmark_widget %}
+<div id="new-bookmark-widget">
+    <form method="post">
+        <h3>Bookmark</h3>
+        <p><label>URL</label> <input></p>
+        <p><label>Title</label> <input></p>
+        <p><label>Tags (comma-separated)</label> <input></p>
+        <p><button id="new-bookmark-submit">Submit</button>Submit</button>
+    </form>
+</div>
+{% endblock %}
