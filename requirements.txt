@@ -2,3 +2,4 @@ Django
 django-debug-toolbar
 south
 dj-database-url
+psycopg2
